@@ -29,7 +29,11 @@ const registerUserController=async(req,res)=>{
     })
     const token = jwt.sign({id:user.id, username:username}, process.env.JWT_SECRET, {"expiresIn": "1d"})
     res.cookie("token", token)
-    res.status(201).json({message:"user created successfully"})
+    res.status(201).json({message:"user created successfully", user:{
+      id: user.id,
+      username : user.username,
+      email : user.email
+    }})
 }
 
 const loginController = async(req,res)=>{
@@ -56,5 +60,44 @@ const loginController = async(req,res)=>{
     email: user.email
   }
 })
+
 }
-module.exports = {registerUserController, loginController}
+
+const logoutUserController = async (req, res) => {
+  try {
+    const token = req.cookies.token
+
+    if (!token) {
+      return res.status(400).json({ message: "No token found" })
+    }
+
+    const decoded = jwt.decode(token)
+
+    await prisma.blacklistedToken.create({
+      data: {
+        token,
+        expiresAt: new Date(decoded.exp * 1000)
+      }
+    })
+
+    res.clearCookie("token")
+
+    res.status(200).json({ message: "Logged out successfully" })
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error" })
+  }
+}
+
+const getMeController=async(req,res)=>{
+    const user = req.user.id
+    const data = await prisma.user.findUnique({where:{
+        id : user
+    }})
+    res.status(200).json({user:{
+        id: data.id,
+        username: data.username,
+        email : data.email
+    }})
+}
+module.exports = {registerUserController, loginController, logoutUserController, getMeController}
