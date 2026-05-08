@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser')
 const app = express()
 const prisma = require('./db')
 const authRouter = require('../auth.route')
+const interviewRouter = require('../auth.interview')
 const cors = require('cors')
 app.use(express.json())
 app.use(cookieParser())
@@ -23,5 +24,6 @@ app.use(cors({
 //   console.log(user);
 // }
 app.use('/api/auth', authRouter)
+app.use('/api/interview', interviewRouter)
 // test();
 module.exports = app

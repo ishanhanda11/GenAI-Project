@@ -1,0 +1,123 @@
+.navbar {
+  background: linear-gradient(135deg, #0f172a 0%, #1a1d29 100%);
+  border-bottom: 1px solid #374151;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+  }
+
+  .navbar-left {
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f3f4f6;
+      text-decoration: none;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .navbar-auth-buttons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .navbar-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+
+      &.navbar-button-login {
+        background: transparent;
+        color: #cbd5e1;
+        border: 1px solid #374151;
+
+        &:hover {
+          background: rgba(99, 102, 241, 0.1);
+          border-color: #6366f1;
+          color: #a5b4fc;
+        }
+      }
+
+      &.navbar-button-signup {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+      }
+
+      &.navbar-button-logout {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .navbar {
+    .navbar-container {
+      padding: 0 1rem;
+      height: 3.5rem;
+    }
+
+    .navbar-left .navbar-brand {
+      font-size: 1.25rem;
+    }
+
+    .navbar-right {
+      .navbar-auth-buttons {
+        gap: 0.5rem;
+      }
+
+      .navbar-button {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+        min-width: 70px;
+      }
+    }
+  }
+}

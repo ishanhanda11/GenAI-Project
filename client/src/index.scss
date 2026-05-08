@@ -8,25 +8,60 @@ html,body, #root{
     width: 100%;
     background-color: #161616;
     color: whitesmoke;
-
-
 }
 
-.button{
-    outline: none;
-    border: none;
-    padding-inline: 1.5rem;
-    padding-block: 0.75rem;
-    border-radius: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    &.button-primary{
-        background-color: rgb(56, 1, 175) ;
-    }
-
-   &:active{
-    transform: scale(1.1);
-
-   }
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
- 
+
+.highlight {
+  color: #a5b4fc; /* soft indigo (readable on dark bg) */
+  font-weight: 500;
+}
+
+
+
+.button {
+  outline: none;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &.button-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6); /* same theme */
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+  }
+
+  &.button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  
+}
+
+.danger{
+  color: red;
+}
+

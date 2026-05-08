@@ -13,7 +13,7 @@ const authMiddleware = async(req,res,next)=>{
             token : token
         }
     })
-    if (!isTokenBlacklisted){
+    if (isTokenBlacklisted){
         return res.status(401).json({message : "Token is Invalid"})
     }
     try{

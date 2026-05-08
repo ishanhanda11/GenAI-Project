@@ -17,6 +17,7 @@ model User {
   username String @unique
   email    String @unique
   password String
+  interviewReports InterviewReport[]
 }
 
 model BlacklistedToken {
@@ -24,4 +25,84 @@ model BlacklistedToken {
   token     String   @unique
   createdAt DateTime @default(now())
   expiresAt DateTime
+}
+
+// ENUM
+enum Severity {
+  low
+  medium
+  high
+}
+
+// =======================
+// MAIN MODEL
+// =======================
+model InterviewReport {
+  id                   Int      @id @default(autoincrement())
+  jobDescription       String
+  resume               String?
+  selfDescription      String?
+  typeScore            Int
+  userId               Int
+  user                 User     @relation(fields: [userId], references: [id])
+  technicalQuestions   TechnicalQuestion[]
+  behavioralQuestions  BehavioralQuestion[]
+  skillGaps            SkillGap[]
+  preparationPlan      PreparationPlan[]
+  title                String @default("Untitled")
+
+  createdAt            DateTime @default(now())
+}
+
+// =======================
+// TECHNICAL QUESTIONS
+// =======================
+model TechnicalQuestion {
+  id        Int    @id @default(autoincrement())
+  question  String
+  intention String
+  answer    String
+
+  reportId  Int
+  report    InterviewReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+}
+
+// =======================
+// BEHAVIORAL QUESTIONS
+// =======================
+model BehavioralQuestion {
+  id        Int    @id @default(autoincrement())
+  question  String
+  intention String
+  answer    String
+
+  reportId  Int
+  report    InterviewReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+}
+
+// =======================
+// SKILL GAP
+// =======================
+model SkillGap {
+  id        Int      @id @default(autoincrement())
+  skill     String
+  severity  Severity
+
+  reportId  Int
+  report    InterviewReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+}
+
+// =======================
+// PREPARATION PLAN
+// =======================
+model PreparationPlan {
+  id        Int    @id @default(autoincrement())
+  day       Int
+  focus     String
+  tasks     String[]
+
+  reportId  Int
+  report    InterviewReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+
+  @@unique([reportId, day]) // prevents duplicate day per report
 }
