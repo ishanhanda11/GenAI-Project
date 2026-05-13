@@ -62,6 +62,9 @@ const Home = () => {
         if(!resumeFile){
             setMessage("Please upload the file.")
         }
+        if(resumeFile.type != "application/pdf"){
+             setMessage("Please select only pdf file")
+        }
         const data = await generateReport({jobDescription,selfDescription,resumeFile})
         if(data?.id) {
             // Reset form
