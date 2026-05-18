@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const prisma = require('../db')
+const prisma = require('../db/db')
 
 const authMiddleware = async(req,res,next)=>{
     const token = req.cookies.token

@@ -46,18 +46,7 @@ const Interview = () => {
     }
   }, [interviewId]);
 
-  // Debug logging
-  useEffect(() => {
-    console.log("Report state updated:", report);
-    if (report) {
-      console.log("Full report object:", JSON.stringify(report, null, 2));
-      console.log("Report keys:", Object.keys(report));
-      console.log("Technical Questions:", report.technicalQuestions);
-      console.log("Behavioral Questions:", report.behavioralQuestions);
-      console.log("Skill Gaps:", report.skillGaps);
-      console.log("Preparation Plan:", report.preparationPlan);
-    }
-  }, [report]);
+
 
   if (loading) {
     return <div className="interview-container"><p>Loading...</p></div>;

@@ -107,8 +107,6 @@ Provide:
     })
 
     const parsed = JSON.parse(response.text)
-    console.log("AI Response Title:", parsed.title)
-    console.log(parsed)
     return parsed
 }
 

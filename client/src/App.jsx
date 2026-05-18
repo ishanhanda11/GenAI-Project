@@ -3,6 +3,7 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./app.routes.jsx";
 import { AuthProvider } from "./auth/auth.context.jsx";
 import { InterviewProvider } from "./interview/interview.context.jsx";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
@@ -11,6 +12,7 @@ function App() {
           <RouterProvider router={router} />
         </InterviewProvider>
       </AuthProvider>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

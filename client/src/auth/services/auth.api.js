@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {toast} from 'react-toastify'
 const api = axios.create({
     baseURL: "http://localhost:3000",
     withCredentials: true
@@ -12,7 +12,14 @@ export const register=async({username,email,password})=>{
     },)
     return response.data;
 }catch(err){
-    console.log(err)
+    if (err.response?.data?.errors) {
+    // show each Zod error as a separate toast
+    err.response.data.errors.forEach(issue => {
+      toast.error(issue.message)
+    })
+  } else {
+    toast.error("Something went wrong")
+  }
 }
 }
 
@@ -21,18 +28,37 @@ export const login=async({email,password})=>{
     const response = await api.post('/api/auth/login',{
         email, password
     })
+    if(!response.data.success){
+        toast.error(response.data.message)
+        }
     return response.data
 }catch(err){
-    console.log("ERROR RESPONSE:", err.response?.data);
+    if (err.response?.data?.errors) {
+    // show each Zod error as a separate toast
+    err.response.data.errors.forEach(issue => {
+      toast.error(issue.message)
+    })
+  } else {
+    toast.error("Something went wrong")
+  }
 }
 }
 
 export const logout = async ()=>{
     try{
         const response = await api.get('/api/auth/logout',)
-    return response.data
+        return response.data
+
     }catch(err){
-        console.log(err)
+       if (err.response?.data?.errors) {
+    // show each Zod error as a separate toast
+    err.response.data.errors.forEach(issue => {
+      toast.error(issue.message)
+    })
+  } else {
+    toast.error("Something went wrong")
+    console.log(err)
+  }
     }
 }
 

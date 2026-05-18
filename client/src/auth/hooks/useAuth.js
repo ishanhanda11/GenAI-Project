@@ -13,6 +13,8 @@ export const useAuth = ()=>{
                 setUser(data.user)
             }
             return data
+        }catch(err){
+            console.log(err)
         } finally{
             setLoading(false)
         }
@@ -26,6 +28,8 @@ export const useAuth = ()=>{
                 setUser(data.user)
             }
             return data
+        }catch(err){
+            console.log(err)
         } finally{
             setLoading(false)
         }
@@ -37,6 +41,8 @@ export const useAuth = ()=>{
             const data = await logout()
             setUser(null)
             return data
+        }catch(err){
+            console.log(err)
         } finally{
             setLoading(false)
         }
