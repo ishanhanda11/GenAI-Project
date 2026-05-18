@@ -94,7 +94,9 @@ const generateInterviewReportController = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+     if (error.message === "Job description is required") {
+      return res.status(400).json({ message: error.message })
+    }
     res.status(500).json({
       message: "Something went wrong",
       error: error.message,
@@ -162,7 +164,7 @@ const getAllInterviewReport = async(req,res)=>{
       return res.status(404).json({message: "No reports found"})
     }
     res.status(200).json({message: "reports fetched successfully", 
-      InterviewReport
+      reports: InterviewReport
     })
   } catch (error) {
     console.error("Error fetching all reports:", error);

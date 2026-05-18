@@ -7,29 +7,20 @@ export const useInterview = ()=>{
     const Context = useContext(InterviewContext)
     const {loading, setLoading, report, setReport, reports, setReports} = Context
     
-    const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
-    setLoading(true)
-    try {
-        const response = await generateInterviewReport({
-            jobDescription,
-            selfDescription,
-            resumeFile
-        })
-
-        if(response && response.interviewReport) {
-            setReport(response.interviewReport)
-            return response.interviewReport
-        } else {
-            console.error("Invalid response structure:", response)
-            return null
-        }
-
-    } catch (err) {
-        console.error("Error generating interview report:", err)
-        return null
-    } finally {
-        setLoading(false)
+const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+  setLoading(true)
+  try {
+    const response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
+    if (response && response.interviewReport) {
+      setReport(response.interviewReport)
+      return response.interviewReport
     }
+    return null
+  } catch (err) {
+    throw err  
+  } finally {
+    setLoading(false)
+  }
 }
 
     const getReportById = async(interviewId) => {
@@ -52,10 +43,8 @@ export const useInterview = ()=>{
         try{
             setLoading(true)
             const response = await getAllInterviewReport()
-            if(response && response.interviewReports) {
-                setReports(response.interviewReports)
-            } else if(response && response.InterviewReport) {
-                setReports(response.InterviewReport)
+            if(response?.reports) {
+                setReports(response.reports)
             } else {
                 console.error("Invalid response structure:", response)
             }

@@ -15,9 +15,7 @@ const Register = () => {
       navigate("/")
     }
   };
-  if (loading){
-      return (<main><h1>Loading.....</h1></main>)
-    }
+  
   return (
     <main>
       <div className="form-container">
@@ -40,7 +38,9 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {loading ? <button disabled className="button button-primary">Signing Up.....</button>:
           <button className="button button-primary">Submit</button>
+          }
         </form>
         <p>
           Already have an account? <Link to={"/login"}>Login</Link>

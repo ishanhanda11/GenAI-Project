@@ -2,20 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.scss';
 import { useAuth } from '../hooks/useAuth';
+import { InterviewContext } from '../../interview/interview.context'
+import { useContext } from 'react';
+
 const Navbar = () => {
     const {user, handleLogout, loading} = useAuth()
-  // Static UI - no logic for authentication state
-  // This would normally come from auth context
+    const context = useContext(InterviewContext)
+    const {resetReports} = context
     const handleLogoutBtn = async() =>{
         try{
 
             const response = await handleLogout()
+            resetReports()
             return response
         }catch(err){
             console.log(err)
         }
     }
-    
   return (
     <nav className="navbar">
       <div className="navbar-container">

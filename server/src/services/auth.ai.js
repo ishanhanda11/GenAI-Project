@@ -1,5 +1,6 @@
 const { GoogleGenAI } = require('@google/genai')
 
+
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
 })
@@ -77,15 +78,24 @@ const interviewReportSchema = {
     },
     required: ["matchScore", "technicalQuestions", "behavioralQuestions", "skillsGap", "preparationPlan", "title"]
 }
-
+const sanitizeInput=(text, maxLength)=>{
+    if (typeof text !== 'string') return ''
+    return text.trim().slice(0, maxLength)
+}
 async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
+    const cleanResume = sanitizeInput(resume,6000)
+    const cleanSelfDescription = sanitizeInput(selfDescription,1000)
+    const cleanJobDescription = sanitizeInput(jobDescription,2000)
+    if (!cleanJobDescription) {
+    throw new Error("Job description is required")
+  }
     const prompt = `Generate a comprehensive interview report for a candidate with the following details:
+    
+Resume: ${cleanResume}
 
-Resume: ${resume}
+Self Description: ${cleanSelfDescription}
 
-Self Description: ${selfDescription}
-
-Job Description: ${jobDescription}
+Job Description: ${cleanJobDescription}
 
 IMPORTANT: Generate a clear, professional title for this interview report (e.g., "Software Engineer Interview Analysis", "Backend Developer Assessment", etc.). The title should reflect the position and the analysis.
 
